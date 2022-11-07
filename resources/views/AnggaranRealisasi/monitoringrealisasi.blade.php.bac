@@ -1,0 +1,62 @@
+@extends('adminlte::page')
+
+@section('title', 'Monitoring Realisasi')
+
+@section('content_header')
+    <h1>Monitoring Realisasi</h1>
+@stop
+
+@section('content')
+
+    @if(session('gagal'))
+        <div class="alert alert-danger">
+            {{session('gagal')}}
+        </div>
+    @endif
+
+    <form action="{{ route('anggaran.aksirekapmonitoringrealisasi') }}" method="post" autocomplete="off">
+        @csrf
+        <div class="card-body">
+            @section('plugins.TempusDominusBs4', true)
+            {{-- Placeholder, date only and append icon --}}
+            @php
+                $config = ['format' => 'YYYY-MM-DD'];
+            @endphp
+            <x-adminlte-input-date name="tanggalcetak" :config="$config" placeholder="Pilih Tanggal Cetak">
+                <x-slot name="appendSlot">
+                    <div class="input-group-text bg-gradient-danger">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </x-slot>
+            </x-adminlte-input-date>
+
+            @section('plugins.Select2',true)
+            <x-adminlte-select2 name="satker" data-placeholder="Pilih Satker">
+                <x-slot name="appendSlot">
+                    <div class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </x-slot>
+                <option>Pilih Satker</option>
+                <option value="001012">Setjen</option>
+                <option value="001030">Dewan</option>
+            </x-adminlte-select2>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            <button type=submit class="btn btn-block">
+                <span class="fas fa-sign-in-alt"></span>
+                Rekap Data
+            </button>
+        </div>
+    </form>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
