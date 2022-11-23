@@ -27,6 +27,8 @@ use App\Http\Controllers\AnggaranRealisasi\KomponenController;
 use App\Http\Controllers\Ikpa\RealisasiBiroController;
 use App\Http\Controllers\Ikpa\DataRealisasiController;
 use App\Http\Controllers\Ikpa\PerhitunganIkpaBulanan;
+use App\Http\Controllers\PIPK\AkunSignifikanController;
+use App\Http\Controllers\PIPK\JenisDokumenTagihanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,14 +41,19 @@ use App\Http\Controllers\Ikpa\PerhitunganIkpaBulanan;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
 
 Auth::routes();
+
+
 Route::match(["GET", "POST"], "/register", function(){
     return redirect("/login");
 })->name("register");
+
+Route::get('/', function (){
+    return redirect(("/login"));
+});
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group([
@@ -293,6 +300,16 @@ Route::group([
     Route::post('aksirekapnilaiikpa',[PerhitunganIkpaBulanan::class,'aksirekapnilaiikpa'])->name('aksirekapnilaiikpa');
     Route::post('nilaiperbagian',[PerhitunganIkpaBulanan::class,'nilaiikpabagian'])->name('nilaiikpabagian');
     Route::post('getnilaiikparealisasi',[PerhitunganIkpaBulanan::class,'nilaiikpabagian'])->name('nilaiikpabagian');
+});
+
+Route::group([
+    'middleware' => ['auth','auth.role'],
+    'prefix' => 'pipk',
+    'role' => ['SuperAdmin','AdminPIPK'],
+    'as' => 'pipk.'
+], function(){
+    Route::resource('akunsignifikan',AkunSignifikanController::class);
+    Route::resource('jenisdokumen',AkunSignifikanController::class);
 });
 
 

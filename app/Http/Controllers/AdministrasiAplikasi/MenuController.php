@@ -139,6 +139,20 @@ class MenuController extends Controller
                             ],
                         ],
                     ]);
+                    $event->menu->add([
+                        'text'    => 'Administrasi PIPK',
+                        'icon'    => 'fas fa-fw fa-list',
+                        'submenu' => [
+                            [
+                                'text' => 'Akun Signifikan',
+                                'url'  => 'pipk/akunsignifikan',
+                            ],
+                            [
+                                'text' => 'Jenis Dokumen Tagihan',
+                                'url'  => 'pipk/jenisdokumen',
+                            ],
+                        ],
+                    ]);
                 }else if ($role == 2){
                     $event->menu->add([
                         'text'    => 'Referensi Unit',
@@ -205,6 +219,17 @@ class MenuController extends Controller
                             [
                                 'text' => 'Export Realisasi',
                                 'route'  => 'anggaran.monitoringrealisasi',
+                            ],
+                        ],
+                    ]);
+                }else if ($role == 6){
+                    $event->menu->add([
+                        'text'    => 'Administrasi PIPK',
+                        'icon'    => 'fas fa-fw fa-list',
+                        'submenu' => [
+                            [
+                                'text' => 'Akun Signifikan',
+                                'route'  => 'pipk.akunsignifikan',
                             ],
                         ],
                     ]);

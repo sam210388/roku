@@ -30,9 +30,7 @@
     </div>
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+
 @section('js')
     @foreach ($js_files as $js_file)
         <script src="{{ $js_file }}"></script>
